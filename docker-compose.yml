@@ -1,0 +1,33 @@
+services:
+  web:
+     image: nginx:latest
+     ports:
+       - "8080:80"
+     volumes:
+         - ./code:/code
+         - ./conf.d:/etc/nginx/conf.d
+         - ./begin:/begin
+     stdin_open: true
+     tty: true
+     links:
+      - php
+  php:
+     image: php:8-fpm
+     volumes:
+      - ./code:/code
+      - ./begin:/begin
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=kalisto
+      - POSTGRES_PASSWORD=kalisto
+      - POSTGRES_DB=kalisto
+    ports:
+        - "5432:5432"
+    volumes:
+        - ./init.sql:/docker-entrypoint-initdb.d/10-init.sql
+
+volumes:
+  begin:

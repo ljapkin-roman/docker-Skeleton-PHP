@@ -1,0 +1,3 @@
+docker-compose up --d ====== detach mode
+docker-compose exec server bash =======  start bash
+YOU MUST KNOW WHERE IS INDEX FILE ON NGINX SERVER AND PUT IN YOUR PAGE 
